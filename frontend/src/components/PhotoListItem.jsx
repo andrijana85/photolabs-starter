@@ -5,18 +5,25 @@ import "../styles/PhotoListItem.scss";
 
 
 
-const PhotoListItem = ({ id, location, imageSource, username, profile}) => {
+const PhotoListItem = ({ id, location, urls, user}) => {
  return (
-    <div className="photo-list-item">
-      
-      <div className="photo-list-item__image-container">
-        <img src={imageSource} alt={`photo taken in ${location.city}, ${location.country}`} className="photo-list-item__image" />
-        <img src={profile} alt={`profile of ${username}`} className="photo-list-item__profile" />
-      </div>
-      <div className="photo-list-item__description">
-      <div className="photo-list-item__username">{username}
-      </div>
-        <div className="photo-list-item__location">{location.city} {location.country}</div>
+    <div className="photo-list__item">
+      <img 
+      src={urls.regular} 
+      alt={`photo taken in ${location.city}, ${location.country}`} 
+      className="photo-list__image" 
+      />
+   
+      <div className="photo-list__user-details">
+      <img 
+      src={user.profile} 
+      alt={`profile of ${user.username}`} 
+      className="photo-list__user-profile" 
+      />
+        <div className="photo-list__user-info">{user.username}
+        <div className="photo-list__user-location">{location.city}, {location.country}
+        </div>
+        </div>
       </div>
     </div>
  )
