@@ -1,6 +1,8 @@
 import React from "react";
 
 import "../styles/PhotoListItem.scss";
+import FavIcon from "./FavIcon";
+import PhotoFavButton from "./PhotoFavButton";
 
 
 
@@ -8,6 +10,8 @@ import "../styles/PhotoListItem.scss";
 const PhotoListItem = ({ id, location, urls, user}) => {
  return (
     <div className="photo-list__item">
+      
+  <PhotoFavButton />  
       <img 
       src={urls.regular} 
       alt={`photo taken in ${location.city}, ${location.country}`} 
