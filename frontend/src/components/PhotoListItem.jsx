@@ -21,10 +21,10 @@ const PhotoListItem = ({ id, location, urls, user}) => {
       <div className="photo-list__user-details">
       <img 
       src={user.profile} 
-      alt={`profile of ${user.username}`} 
+      alt={`profile of ${user.name}`} 
       className="photo-list__user-profile" 
       />
-        <div className="photo-list__user-info">{user.username}
+        <div className="photo-list__user-info">{user.name}
         <div className="photo-list__user-location">{location.city}, {location.country}
         </div>
         </div>
