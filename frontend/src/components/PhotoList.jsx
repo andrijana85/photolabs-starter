@@ -1,15 +1,18 @@
 import React from "react";
 import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
-import photos from "mocks/photos";
 
 
 
-const PhotoList = () => {
+const PhotoList = ({isFavorite, toggleFavorite, photos}) => {
 
   const photoList = photos.map((photo) => (
     <PhotoListItem
-   key = {photo.id}{...photo}
+      key = {photo.id}{...photo}
+      toggleFavorite={toggleFavorite}
+      isFavorite={isFavorite}
+      data={photo}
+      photoId={photo.id}
     />))
     
   return (
