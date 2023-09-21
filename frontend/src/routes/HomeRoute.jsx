@@ -4,12 +4,20 @@ import '../styles/HomeRoute.scss';
 import TopNavigationBar from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
 import photos from '../mocks/photos';
+import PhotoDetailsModal from './PhotoDetailsModal';
 
 const HomeRoute = () => {
   const [favorites, setFavorites] = useState([]);
   //initialize showNotification to false
   const [showNotification, setShowNotification] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  }
+  const closeModal = () => {
+    setIsModalOpen(false);
+  }
   const toggleFavorite = (id) => {
     if (favorites.includes(id)) {
       setFavorites(favorites.filter((photoId) => photoId !== id));
@@ -33,7 +41,9 @@ const HomeRoute = () => {
       toggleFavorite={toggleFavorite}
       isFavorite={isFavorite}
       photos = {photos}
+      openModal={openModal}
       />
+       {isModalOpen && <PhotoDetailsModal/>}
     </div>
   );
 };

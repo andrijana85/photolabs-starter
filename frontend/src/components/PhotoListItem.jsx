@@ -7,7 +7,7 @@ import PhotoFavButton from "./PhotoFavButton";
 
 
 
-const PhotoListItem = ({ id, location, urls, user, toggleFavorite, isFavorite, photoId}) => {
+const PhotoListItem = ({ id, location, urls, user, toggleFavorite, isFavorite, photoId, openModal}) => {
  return (
     <div className="photo-list__item">
       
@@ -20,6 +20,7 @@ const PhotoListItem = ({ id, location, urls, user, toggleFavorite, isFavorite, p
       src={urls.regular} 
       alt={`photo taken in ${location.city}, ${location.country}`} 
       className="photo-list__image" 
+      onClick={openModal}
       />
    
       <div className="photo-list__user-details">
