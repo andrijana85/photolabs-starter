@@ -11,9 +11,12 @@ const HomeRoute = () => {
   //initialize showNotification to false
   const [showNotification, setShowNotification] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState();
 
-  const openModal = () => {
+  const openModal = (photo) => {
     setIsModalOpen(true);
+    setSelectedPhoto(photo);
+    console.log(photo);
   }
   const closeModal = () => {
     setIsModalOpen(false);
@@ -43,7 +46,7 @@ const HomeRoute = () => {
       photos = {photos}
       openModal={openModal}
       />
-       {isModalOpen && <PhotoDetailsModal closeModal={closeModal}/>}
+       {isModalOpen && <PhotoDetailsModal closeModal={closeModal} selectedPhoto={selectedPhoto}/>}
     </div>
   );
 };

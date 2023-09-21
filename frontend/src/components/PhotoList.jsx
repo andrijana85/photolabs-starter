@@ -13,7 +13,7 @@ const PhotoList = ({isFavorite, toggleFavorite, photos, openModal}) => {
       isFavorite={isFavorite}
       data={photo}
       photoId={photo.id}
-      openModal={openModal}
+      openModal={() => openModal(photo)}
     />))
     
   return (
