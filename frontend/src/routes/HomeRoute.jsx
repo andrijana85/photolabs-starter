@@ -43,7 +43,7 @@ const HomeRoute = () => {
       photos = {photos}
       openModal={openModal}
       />
-       {isModalOpen && <PhotoDetailsModal/>}
+       {isModalOpen && <PhotoDetailsModal closeModal={closeModal}/>}
     </div>
   );
 };
