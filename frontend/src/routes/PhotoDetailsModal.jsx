@@ -41,6 +41,7 @@ const PhotoDetailsModal = ({
         isFavorite={isFavorite}
         photos={photos}
         openModal={openModal}
+        className="photo-details-modal__images"
       />
       </div>
     </div>
