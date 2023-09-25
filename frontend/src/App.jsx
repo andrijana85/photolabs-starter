@@ -27,6 +27,7 @@ const App = () => {
         showNotification={state.showNotification}
         isModalOpen={state.isModalOpen}
         selectedPhoto={state.selectedPhoto}
+        photos={state.photoData}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 
 // const useAplicationData = () => {
 //    // create a state variable to control the modal
@@ -8,9 +8,9 @@ import { useReducer } from "react";
 //    const [showNotification, setShowNotification] = useState(false);
 //    const [isModalOpen, setIsModalOpen] = useState(false);
 //    const [selectedPhoto, setSelectedPhoto] = useState();
- 
+
 //    // const similarPhotos = photos.map((photo) => photo.similar_photos );
- 
+
 //    const openModal = (photo) => {
 //      setIsModalOpen(true);
 //      setSelectedPhoto(photo);
@@ -34,12 +34,13 @@ import { useReducer } from "react";
 //    // check if there are photos in favorites
 //    const isFavPhotoExists = favorites.length > 0;
 
-
 const initialState = {
   favorites: [],
   isModalOpen: false,
   selectedPhoto: {},
   showNotification: false,
+  photoData: [],
+  topicData: [],
 };
 
 const ACTIONS = {
@@ -48,6 +49,8 @@ const ACTIONS = {
   SELECT_PHOTO: "select-photo",
   TOGGLE_FAVORITE: "toggle-favorite",
   SHOW_NOTIFICATION: "show-notification",
+  SET_PHOTO_DATA: "set-photo-data",
+  SET_TOPIC_DATA: "set-topic-data",
 };
 
 const reducer = (state, action) => {
@@ -74,43 +77,66 @@ const reducer = (state, action) => {
       }
     case ACTIONS.SHOW_NOTIFICATION:
       return { ...state, showNotification: action.payload };
+
+    case ACTIONS.SET_PHOTO_DATA:
+      return { ...state, photoData: action.payload };
+    case ACTIONS.SET_TOPIC_DATA:
+      return { ...state, topicData: action.payload };
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
       );
   }
-}
- const useAplicationData = () => {
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const { favorites, isModalOpen, selectedPhoto, showNotification } = state;
+};
+const useAplicationData = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { favorites, isModalOpen, selectedPhoto, showNotification } = state;
 
-    const openModal = (photo) => {
-      dispatch({ type: ACTIONS.OPEN_MODAL });
-      dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
-    }
-    const closeModal = () => {
-      dispatch({ type: ACTIONS.CLOSE_MODAL });
-    }
-    const toggleFavorite = (id) => {
-      dispatch({ type: ACTIONS.TOGGLE_FAVORITE, payload: id });
-      dispatch({ type: ACTIONS.SHOW_NOTIFICATION, payload: true });
-    }
-    const isFavorite = (id) => favorites.includes(id);
-    const isFavPhotoExists = favorites.length > 0;
-    const setShowNotification = (value) => {
-      dispatch({ type: ACTIONS.SHOW_NOTIFICATION, payload: value });
-    }
+  const openModal = (photo) => {
+    dispatch({ type: ACTIONS.OPEN_MODAL });
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
+  };
+  const closeModal = () => {
+    dispatch({ type: ACTIONS.CLOSE_MODAL });
+  };
+  const toggleFavorite = (id) => {
+    dispatch({ type: ACTIONS.TOGGLE_FAVORITE, payload: id });
+    dispatch({ type: ACTIONS.SHOW_NOTIFICATION, payload: true });
+  };
+  const isFavorite = (id) => favorites.includes(id);
+  const isFavPhotoExists = favorites.length > 0;
+  const setShowNotification = (value) => {
+    dispatch({ type: ACTIONS.SHOW_NOTIFICATION, payload: value });
+  };
 
-   return {
-     state,
-     isFavorite,
-     toggleFavorite,
-     isFavPhotoExists,
-     openModal,
-     closeModal,
-     setShowNotification,
-   };
-  }
-  export default useAplicationData;
+  //Fetch photos from the API
+  useEffect(() => {
+    fetch("http://localhost:8001/api/photos")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+      });
+  }, []);
 
-
+  //Fetch topics from the API
+  useEffect(() => {
+    fetch("http://localhost:8001/api/topics")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
+      });
+  }, []);
+  
+  return {
+    state,
+    isFavorite,
+    toggleFavorite,
+    isFavPhotoExists,
+    openModal,
+    closeModal,
+    setShowNotification,
+  };
+};
+export default useAplicationData;

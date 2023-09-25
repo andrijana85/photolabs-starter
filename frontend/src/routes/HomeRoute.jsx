@@ -3,7 +3,7 @@ import { useState } from "react";
 import "../styles/HomeRoute.scss";
 import TopNavigationBar from "components/TopNavigationBar";
 import PhotoList from "components/PhotoList";
-import photos from "../mocks/photos";
+
 import PhotoDetailsModal from "./PhotoDetailsModal";
 
 const HomeRoute = (props) => {
@@ -17,6 +17,7 @@ const HomeRoute = (props) => {
     showNotification,
     isModalOpen,
     selectedPhoto,
+    photos,
   } = props;
 
   return (
