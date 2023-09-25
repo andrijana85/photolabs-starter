@@ -27,13 +27,14 @@
 .photo-details-modal__images {
   margin-left: 36px;
   margin-top: 8px;
+  margin-top: 8px;
 }
 
 .photo-details-modal__image {
   display: flex;
   justify-content: center;
   align-items: center;
-  align-self: center;
+  // align-self: center;
   width: 95%;
   border-radius: 8px;
 }

@@ -41,6 +41,7 @@ const initialState = {
   showNotification: false,
   photoData: [],
   topicData: [],
+  selectedTopic: null,
 };
 
 const ACTIONS = {
@@ -51,6 +52,7 @@ const ACTIONS = {
   SHOW_NOTIFICATION: "show-notification",
   SET_PHOTO_DATA: "set-photo-data",
   SET_TOPIC_DATA: "set-topic-data",
+  GET_PHOTOS_BY_TOPICS: "get-photos-by-topics",
 };
 
 const reducer = (state, action) => {
@@ -82,6 +84,8 @@ const reducer = (state, action) => {
       return { ...state, photoData: action.payload };
     case ACTIONS.SET_TOPIC_DATA:
       return { ...state, topicData: action.payload };
+    case ACTIONS.GET_PHOTOS_BY_TOPICS:
+      return { ...state, selectedTopic: action.payload };
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -90,7 +94,7 @@ const reducer = (state, action) => {
 };
 const useAplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { favorites, isModalOpen, selectedPhoto, showNotification } = state;
+  const { favorites, isModalOpen, selectedPhoto, showNotification} = state;
 
   const openModal = (photo) => {
     dispatch({ type: ACTIONS.OPEN_MODAL });
@@ -128,7 +132,23 @@ const useAplicationData = () => {
         dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
       });
   }, []);
-  
+
+  useEffect(() => {
+    if (state.selectedTopic) {
+      console.log("Selected Topic:", state.selectedTopic);
+      fetch(`http://localhost:8001/api/topics/photos/${state.selectedTopic}`)
+        .then((response) => response.json())
+        .then((photoByTopic) => {
+          console.log(photoByTopic);
+          dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoByTopic });
+        });
+    }
+  }, [state.selectedTopic]);
+
+  const getPhotosByTopics = (topic) => {
+    dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: topic });
+  };
+
   return {
     state,
     isFavorite,
@@ -137,6 +157,7 @@ const useAplicationData = () => {
     openModal,
     closeModal,
     setShowNotification,
+    getPhotosByTopics
   };
 };
 export default useAplicationData;

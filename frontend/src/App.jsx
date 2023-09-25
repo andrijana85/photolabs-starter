@@ -13,6 +13,7 @@ const App = () => {
     toggleFavorite,
     openModal,
     closeModal,
+    getPhotosByTopics,
   } = useAplicationData();
 
   return (
@@ -29,6 +30,7 @@ const App = () => {
         selectedPhoto={state.selectedPhoto}
         photos={state.photoData}
         topics={state.topicData}
+        getPhotosByTopics={getPhotosByTopics}
       />
     </div>
   );
