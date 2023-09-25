@@ -28,6 +28,7 @@ const App = () => {
         isModalOpen={state.isModalOpen}
         selectedPhoto={state.selectedPhoto}
         photos={state.photoData}
+        topics={state.topicData}
       />
     </div>
   );
