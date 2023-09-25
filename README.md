@@ -4,7 +4,7 @@ PhotoLabs is a React-based single-page application (SPA) that allows users to vi
 This project was built as a part of my studies at Lighthouse Labs.
 
 # Preview
-[![Preview]](./docs/PhotoLab.gif)
+![PhotoLabPreview](./docs/PhotoLab.gif)
 
 # Features
 
