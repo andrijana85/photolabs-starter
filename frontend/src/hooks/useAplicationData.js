@@ -133,20 +133,22 @@ const useAplicationData = () => {
       });
   }, []);
 
-  useEffect(() => {
-    if (state.selectedTopic) {
-      console.log("Selected Topic:", state.selectedTopic);
-      fetch(`http://localhost:8001/api/topics/photos/${state.selectedTopic}`)
+  // useEffect(() => {
+  //   if (state.selectedTopic) {
+  //     console.log("Selected Topic:", state.selectedTopic);
+      
+  //   }
+  // }, [state.selectedTopic]);
+
+  const getPhotosByTopics = (topic) => {
+    console.log("Selected Topic:", topic);
+    // dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: topic });
+    fetch(`http://localhost:8001/api/topics/photos/${topic}`)
         .then((response) => response.json())
         .then((photoByTopic) => {
           console.log(photoByTopic);
           dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoByTopic });
         });
-    }
-  }, [state.selectedTopic]);
-
-  const getPhotosByTopics = (topic) => {
-    dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: topic });
   };
 
   return {
